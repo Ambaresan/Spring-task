@@ -8,12 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ty.trainapp.dto.Train;
 import com.ty.trainapp.service.TrainService;
 
-@Controller
+@RestController
 public class TrainController {
 	
 	@Autowired
@@ -78,17 +79,25 @@ public class TrainController {
 		return modelAndView;
 		
 	}
+	
+	
+	
 	@RequestMapping("/display-all-train")
-	public ModelAndView diplayAllTrain( Model model, ModelAndView modelAndView, Train train) {
-		
-	List<Train> allTrains= trainService.getAllTrain();
-	model.addAttribute("allTrain", allTrains);
-	modelAndView.setViewName("display-all-train");
-	
-	return modelAndView;
-	
-		
+	public ModelAndView diplayAllTrain(
+	        @RequestParam(name = "page", defaultValue = "1") int page,
+	        Model model, ModelAndView modelAndView, Train train) {
+	        
+	    int pageSize = 10;
+	    int offset = (page - 1) * pageSize;
+
+	    List<Train> allTrains = trainService.getAllTrain(offset, pageSize);
+	    model.addAttribute("allTrain", allTrains);
+	    modelAndView.setViewName("display-all-train");
+
+	    return modelAndView;
 	}
+	
+	
 	
 	@RequestMapping("/delete-train-form")
 	public ModelAndView getDeleteTrainFormPage(ModelAndView modelandview) {

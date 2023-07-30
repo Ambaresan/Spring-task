@@ -41,13 +41,18 @@ public class TrainDao {
 		return manager.find(Train.class, trainNumber);
 	}
 
-	public List<Train> getAllTrain() {
-		EntityManager manager = factory.createEntityManager();
 
-		Query query = manager.createQuery("FROM Train");
 
-		return query.getResultList();
+	public List<Train> getAllTrain(int offset, int limit) {
+	    EntityManager manager = factory.createEntityManager();
+
+	    Query query = manager.createQuery("FROM Train");
+	    query.setFirstResult(offset);
+	    query.setMaxResults(limit);
+
+	    return query.getResultList();
 	}
+
 
 	public Train deleteTrain(Train getTrain) {
 		EntityManager manager = factory.createEntityManager();

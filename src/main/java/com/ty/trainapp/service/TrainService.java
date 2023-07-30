@@ -21,9 +21,15 @@ public class TrainService {
 		
 		return trainDao.searchTrain(trainNumber);
 	}
-	public List<Train> getAllTrain() {
-		return trainDao.getAllTrain();
+	
+	
+
+
+
+	public List<Train> getAllTrain(int page, int pageSize ) {
+		return trainDao.getAllTrain(page, pageSize);
 	}
+	
 	
 	public Train getDeleteTrain(Train getTrain) {
 		

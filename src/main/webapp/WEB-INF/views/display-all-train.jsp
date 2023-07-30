@@ -43,5 +43,24 @@
 
 </table>
 
+<div class="pagination">
+    <c:if test="${page > 1}">
+        <a href="<c:url value='/display-all-train'/>?page=${page - 1}">Previous</a>
+    </c:if>
+    <h2>Displaying Trains - Page ${page}</h2>
+    <c:if test="${not empty allTrain and allTrain.size() == 10}">
+        <button onclick="incrementPage()">Next</button>
+    </c:if>
+</div>
+
+
+<script>
+    function incrementPage() {
+        var currentPage = ${page}; 
+        var nextPage = currentPage + 1; 
+        window.location.href = '<c:url value="/display-all-train"/>?page=' + nextPage; 
+        }
+</script>
+
 </body>
 </html>
